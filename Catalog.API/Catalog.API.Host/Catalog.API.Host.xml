@@ -9,19 +9,19 @@
             A controller for catalog related behaviors such as excel export
             </summary>
         </member>
-        <member name="M:Catalog.API.Host.Controllers.CatalogController.Get(System.Int32)">
+        <member name="M:Catalog.API.Host.Controllers.CatalogController.Get(System.Guid)">
             <param name="id">Unique report identifier value</param>
             <returns>An object representing an exported Catalog</returns>
         </member>
-        <member name="M:Catalog.API.Host.Controllers.CatalogController.GetFile(System.Int32)">
+        <member name="M:Catalog.API.Host.Controllers.CatalogController.GetFile(System.Guid)">
             <param name="id">Unique report identifier value</param>
             <returns>An object representing an exported Catalog file</returns>
         </member>
-        <member name="M:Catalog.API.Host.Controllers.CatalogController.Post">
+        <member name="M:Catalog.API.Host.Controllers.CatalogController.Create">
             <param name="request">An object representing a request to create a Catalog Export</param>
             <returns></returns>
         </member>
-        <member name="M:Catalog.API.Host.Controllers.CatalogController.Delete(System.Int32)">
+        <member name="M:Catalog.API.Host.Controllers.CatalogController.Delete(System.Guid)">
             <param name="id">Unique product identifier value</param>
         </member>
         <member name="T:Catalog.API.Host.Controllers.ProductsController">
@@ -32,17 +32,22 @@
         <member name="M:Catalog.API.Host.Controllers.ProductsController.Get">
             <returns>A list of products that match the search criteria.</returns>
         </member>
-        <member name="M:Catalog.API.Host.Controllers.ProductsController.Get(System.Int32)">
+        <member name="M:Catalog.API.Host.Controllers.ProductsController.Get(System.Guid)">
             <param name="id">Unique product identifier value</param>
             <returns>An object representing a Product</returns>
         </member>
-        <member name="M:Catalog.API.Host.Controllers.ProductsController.GetImage(System.Int32)">
+        <member name="M:Catalog.API.Host.Controllers.ProductsController.GetImage(System.Guid)">
             <param name="id">Unique product identifier value</param>
             <returns>An object representing a Product Image</returns>
         </member>
-        <member name="M:Catalog.API.Host.Controllers.ProductsController.Post(Catalog.API.Contracts.Requests.CreateProductRequest)">
+        <member name="M:Catalog.API.Host.Controllers.ProductsController.Create(Catalog.API.Contracts.Requests.CreateProductRequest)">
             <param name="request">An object representing a request to create a Product</param>
             <returns>An object representing a Product</returns>
+        </member>
+        <member name="M:Catalog.API.Host.Controllers.ProductsController.UploadImage(System.Guid,Microsoft.AspNetCore.Http.IFormFile)">
+            <param name="request">An object representing a request to create a Catalog Export</param>
+            <param name="id">Unique product identifier value</param>
+            <returns></returns>
         </member>
         <member name="M:Catalog.API.Host.Controllers.ProductsController.Update(System.Int32,Catalog.API.Contracts.Requests.UpdateProductRequest)">
             <param name="id">Unique product identifier value</param>

@@ -1,4 +1,7 @@
-﻿using Catalog.API.Contracts.Views;
+﻿using System;
+using System.ComponentModel;
+using Catalog.API.Contracts.Views;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Catalog.API.Host.Controllers
@@ -15,7 +18,7 @@ namespace Catalog.API.Host.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(CatalogExport), 200)]
         [ProducesResponseType(typeof(Error), 404)]
-        public IActionResult Get(int id)
+        public IActionResult Get(Guid id)
         {
             return Ok();
         }
@@ -25,7 +28,7 @@ namespace Catalog.API.Host.Controllers
         [HttpGet("{id}/file")]
         [ProducesResponseType(200)]
         [ProducesResponseType(typeof(Error), 404)]
-        public IActionResult GetFile(int id)
+        public IActionResult GetFile(Guid id)
         {
             return Ok();
         }
@@ -35,7 +38,7 @@ namespace Catalog.API.Host.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(CatalogExport), 201)]
         [ProducesResponseType(typeof(Error), 400)]
-        public IActionResult Post()
+        public IActionResult Create()
         {
             return Created("api/catalog/export/1", null);
         }
@@ -44,7 +47,7 @@ namespace Catalog.API.Host.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(204)]
         [ProducesResponseType(typeof(Error), 404)]
-        public IActionResult Delete(int id)
+        public IActionResult Delete(Guid id)
         {
             return NoContent();
         }

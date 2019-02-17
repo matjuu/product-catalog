@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Catalog.API.Configuration\Catalog.API.Configuration.csproj" />
     <ProjectReference Include="..\Catalog.API.Contracts\Catalog.API.Contracts.csproj" />
   </ItemGroup>
 

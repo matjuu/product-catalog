@@ -4,4 +4,10 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Catalog.API.Configuration\Catalog.API.Configuration.csproj" />
+    <ProjectReference Include="..\Catalog.API.Contracts\Catalog.API.Contracts.csproj" />
+    <ProjectReference Include="..\Catalog.API.Domain.Contracts\Catalog.API.Domain.Contracts.csproj" />
+  </ItemGroup>
+
 </Project>

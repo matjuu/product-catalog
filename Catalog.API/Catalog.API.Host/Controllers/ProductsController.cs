@@ -1,6 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Catalog.API.ApplicationServices;
 using Catalog.API.Contracts.Requests;
 using Catalog.API.Contracts.Views;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Catalog.API.Host.Controllers
@@ -12,6 +16,16 @@ namespace Catalog.API.Host.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
+        private readonly IRequestHandler<CreateProductRequest, Product> _whenCreateProductRequest;
+        private readonly IRequestHandler<UpdateProductRequest, Product> _whenUpdateProductRequest;
+
+        public ProductsController(IRequestHandler<CreateProductRequest, Product> whenCreateProductRequest,
+            IRequestHandler<UpdateProductRequest, Product> whenUpdateProductRequest)
+        {
+            _whenCreateProductRequest = whenCreateProductRequest;
+            _whenUpdateProductRequest = whenUpdateProductRequest;
+        }
+
         /// <returns>A list of products that match the search criteria.</returns>
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<Product>), 200)]
@@ -26,7 +40,7 @@ namespace Catalog.API.Host.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(Product), 200)]
         [ProducesResponseType(typeof(Error), 404)]
-        public IActionResult Get(int id)
+        public IActionResult Get(Guid id)
         {
             return Ok();
         }
@@ -35,7 +49,7 @@ namespace Catalog.API.Host.Controllers
         /// <returns>An object representing a Product Image</returns>
         [HttpGet("{id}/image")]
         [ProducesResponseType(typeof(Error), 404)]
-        public IActionResult GetImage(int id)
+        public IActionResult GetImage(Guid id)
         {
             return Ok();
         }
@@ -45,7 +59,21 @@ namespace Catalog.API.Host.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(Product), 200)]
         [ProducesResponseType(typeof(Error), 400)]
-        public IActionResult Post([FromBody] CreateProductRequest request)
+        public async Task<IActionResult> Create([FromBody] CreateProductRequest request)
+        {
+            var responseObject = await _whenCreateProductRequest.Handle(request);
+            return Ok(responseObject);
+        }
+
+
+        /// <param name="request">An object representing a request to create a Catalog Export</param>
+        /// <param name="id">Unique product identifier value</param>
+        /// <param name="image"></param>
+        /// <returns></returns>
+        [HttpPut("{id}/image")]
+        [ProducesResponseType(typeof(Product), 200)]
+        [ProducesResponseType(typeof(Error), 400)]
+        public IActionResult UploadImage(Guid id, [FromBody] IFormFile image)
         {
             return Ok();
         }
@@ -57,8 +85,9 @@ namespace Catalog.API.Host.Controllers
         [ProducesResponseType(typeof(Product), 200)]
         [ProducesResponseType(typeof(Error), 400)]
         [ProducesResponseType(typeof(Error), 404)]
-        public IActionResult Update(int id, [FromBody] UpdateProductRequest request)
+        public async Task<IActionResult> Update(int id, [FromBody] UpdateProductRequest request)
         {
+            var response = await _whenUpdateProductRequest.Handle(request);
             return Ok();
         }
 

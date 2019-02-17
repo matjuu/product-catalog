@@ -16,15 +16,14 @@ namespace Catalog.API.Domain.Aggregates
             Validate();
         }
 
-        public Product(Guid id, string code, string name, string imagePath, double price)
+        public Product(string code, string name, double price)
         {
             var priceApproved = IsPriceAutomaticallyApproved(price);
 
             State = new ProductState
             {
-                Id = id,
+                Id = Guid.NewGuid(),
                 Code = code,
-                Image = imagePath,
                 Name = name,
                 Price = price,
                 PriceApproved = priceApproved
@@ -37,7 +36,6 @@ namespace Catalog.API.Domain.Aggregates
         {
             State.Code = command.Code;
             State.Name = command.Name;
-            State.Image = command.Image;
             State.Price = command.Price;
             State.PriceApproved = IsPriceAutomaticallyApproved(command.Price);
 

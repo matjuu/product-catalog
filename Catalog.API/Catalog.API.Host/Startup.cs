@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using Catalog.API.Configuration;
+using Catalog.API.Configuration.Swagger;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -23,6 +25,8 @@ namespace Catalog.API.Host
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            DomainExceptionMappingConfiguration.Configure();
+
             services
                 .AddMvc(options => options.AllowEmptyInputInBodyModelBinding = true)
                 .AddJsonOptions(options =>
@@ -41,6 +45,8 @@ namespace Catalog.API.Host
                 c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "Catalog.API.Host.xml"));
                 c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory,
                     "Catalog.API.Contracts.xml"));
+
+                c.OperationFilter<FileUploadOperationFilter>();
             });
         }
 
