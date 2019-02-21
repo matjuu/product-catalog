@@ -1,5 +1,5 @@
 # Product catalog
-A basic implementation of an API for storing, retrieving and exporting products
+A basic implementation of an API for storing, retrieving and exporting products. Implementation took ~11 hours for reference.
 
 ## Prerequisites
 In order to run this solution you need to have an instance of MSSQL server running.
@@ -38,5 +38,6 @@ API Swagger documentation can be found at http://localhost:5000/swagger.
 4. Implementing the service using DDD resulted in an anemic aggregate of `CatalogExports`. Ideally you'd want this in a separate CRUD service since there is little to no domain specific behaviour to warrant use of DDD.
 6. EF Core usage extremely not elegant - mostly due to complete lack of experience with the technology.
 7. Ideally you'd want to store files in a separate storage (such as Amazon S3 storage or the likes) since now you cannot reliably scale the application beyond one node.
-8. Using `Guid` as the primary and indexing key has pretty big beformance implications and should be separated into two separate keys or optimized in some other way.
+8. Using `Guid` as the primary and indexing key has pretty big performance implications and should be separated into two separate keys or optimized in some other way.
+9. UI wasn't focused on and was pretty much hacked together to showcase API functionality. Therefore it lacks proper error handling and most UX features.
 
