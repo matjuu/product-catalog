@@ -2,10 +2,8 @@
 
 namespace Catalog.API.Domain
 {
-    public abstract class AggregateRoot<TState> : IAggregateRoot where TState : IAggregateState
+    public abstract class AggregateRoot : IAggregateRoot
     {
-        protected TState State { get; set; }
-
-        public Guid Id => State.Id;
+        public Guid Id { get; set; }
     }
 }

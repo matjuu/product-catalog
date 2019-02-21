@@ -1,0 +1,14 @@
+﻿using System.Threading.Tasks;
+
+namespace Catalog.API.ApplicationServices
+{
+    public interface IHandler<TRequest, TResponse>
+    {
+        Task<TResponse> Handle(TRequest request);
+    }
+
+    public interface IHandler<TRequest>
+    {
+        Task Handle(TRequest request);
+    }
+}

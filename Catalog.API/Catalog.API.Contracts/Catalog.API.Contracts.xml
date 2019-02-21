@@ -4,5 +4,210 @@
         <name>Catalog.API.Contracts</name>
     </assembly>
     <members>
+        <member name="T:Catalog.API.Contracts.Commands.ApproveProductPrice">
+            <summary>
+            Represents a request to confirm a product's price
+            </summary>
+        </member>
+        <member name="P:Catalog.API.Contracts.Commands.ApproveProductPrice.Id">
+            <summary>
+            The identifier for the product
+            </summary>
+        </member>
+        <member name="T:Catalog.API.Contracts.Commands.CatalogExportFileById">
+            <summary>
+            Represents a request to download a catalog export
+            </summary>
+        </member>
+        <member name="P:Catalog.API.Contracts.Commands.CatalogExportFileById.Id">
+            <summary>
+            The identifier for the catalog export
+            </summary>
+        </member>
+        <member name="T:Catalog.API.Contracts.Commands.CreateCatalogExport">
+            <summary>
+            Represents a request to create a catalog export
+            </summary>
+        </member>
+        <member name="T:Catalog.API.Contracts.Commands.CreateProduct">
+            <summary>
+            Represents a request to create a product
+            </summary>
+        </member>
+        <member name="P:Catalog.API.Contracts.Commands.CreateProduct.Code">
+            <summary>
+            Product code
+            </summary>
+        </member>
+        <member name="P:Catalog.API.Contracts.Commands.CreateProduct.Name">
+            <summary>
+            Product name
+            </summary>
+        </member>
+        <member name="P:Catalog.API.Contracts.Commands.CreateProduct.Price">
+            <summary>
+            Product price
+            </summary>
+        </member>
+        <member name="T:Catalog.API.Contracts.Commands.DeleteCatalogExport">
+            <summary>
+            Represents a request to delete a catalog export
+            </summary>
+        </member>
+        <member name="P:Catalog.API.Contracts.Commands.DeleteCatalogExport.Id">
+            <summary>
+            The identifier for the catalog export
+            </summary>
+        </member>
+        <member name="T:Catalog.API.Contracts.Commands.DeleteProduct">
+            <summary>
+            Represents a request to delete a product from a catalog
+            </summary>
+        </member>
+        <member name="P:Catalog.API.Contracts.Commands.DeleteProduct.Id">
+            <summary>
+            The identifier for the product
+            </summary>
+        </member>
+        <member name="T:Catalog.API.Contracts.Commands.UpdateProduct">
+            <summary>
+            Represents a request to create a product
+            </summary>
+        </member>
+        <member name="P:Catalog.API.Contracts.Commands.UpdateProduct.Id">
+            <summary>
+            Unique product identifier value
+            </summary>
+        </member>
+        <member name="P:Catalog.API.Contracts.Commands.UpdateProduct.Code">
+            <summary>
+            Product code
+            </summary>
+        </member>
+        <member name="P:Catalog.API.Contracts.Commands.UpdateProduct.Name">
+            <summary>
+            Product name
+            </summary>
+        </member>
+        <member name="P:Catalog.API.Contracts.Commands.UpdateProduct.Price">
+            <summary>
+            Product price
+            </summary>
+        </member>
+        <member name="T:Catalog.API.Contracts.Commands.UpdateProductImage">
+            <summary>
+            Represents a request to upload an image
+            </summary>
+        </member>
+        <member name="P:Catalog.API.Contracts.Commands.UpdateProductImage.Id">
+            <summary>
+            The identifier for the product
+            </summary>
+        </member>
+        <member name="P:Catalog.API.Contracts.Commands.UpdateProductImage.Image">
+            <summary>
+            An object representing an uploaded image file
+            </summary>
+        </member>
+        <member name="P:Catalog.API.Contracts.Queries.CatalogExportsByFilter.Limit">
+            <summary>
+            How many query results to return in this request at most (default 10)
+            </summary>
+        </member>
+        <member name="P:Catalog.API.Contracts.Queries.CatalogExportsByFilter.Offset">
+            <summary>
+            How many results to skip (default 0)
+            </summary>
+        </member>
+        <member name="P:Catalog.API.Contracts.Queries.ProductsByFilter.Search">
+            <summary>
+            Search string (matches against name and code)
+            </summary>
+        </member>
+        <member name="P:Catalog.API.Contracts.Queries.ProductsByFilter.Limit">
+            <summary>
+            How many query results to return in this request at most (default 10)
+            </summary>
+        </member>
+        <member name="P:Catalog.API.Contracts.Queries.ProductsByFilter.Offset">
+            <summary>
+            How many results to skip (default 0)
+            </summary>
+        </member>
+        <member name="T:Catalog.API.Contracts.Views.CatalogExport">
+            <summary>
+            An object representing an exported catalog
+            </summary>
+        </member>
+        <member name="P:Catalog.API.Contracts.Views.CatalogExport.Id">
+            <summary>
+            Unique identifier for the catalog export
+            </summary>
+        </member>
+        <member name="P:Catalog.API.Contracts.Views.CatalogExport.Name">
+            <summary>
+            Name of the exported catalog
+            </summary>
+        </member>
+        <member name="P:Catalog.API.Contracts.Views.CatalogExport.FileName">
+            <summary>
+            Name of the exported catalog file
+            </summary>
+        </member>
+        <member name="P:Catalog.API.Contracts.Views.CatalogExport.CreatedAt">
+            <summary>
+            The time this was created at
+            </summary>
+        </member>
+        <member name="P:Catalog.API.Contracts.Views.CatalogExport.Status">
+            <summary>
+            Status of the document export progress
+            </summary>
+        </member>
+        <member name="T:Catalog.API.Contracts.Views.ExportStatus">
+            <summary>
+            Describes the status of the current catalog export
+            </summary>
+        </member>
+        <member name="T:Catalog.API.Contracts.Views.Product">
+            <summary>
+            Represents a product
+            </summary>
+        </member>
+        <member name="P:Catalog.API.Contracts.Views.Product.Id">
+            <summary>
+            Identifier for the product
+            </summary>
+        </member>
+        <member name="P:Catalog.API.Contracts.Views.Product.Code">
+            <summary>
+            Product code
+            </summary>
+        </member>
+        <member name="P:Catalog.API.Contracts.Views.Product.Name">
+            <summary>
+            Product name
+            </summary>
+        </member>
+        <member name="P:Catalog.API.Contracts.Views.Product.Image">
+            <summary>
+            Product image file name
+            </summary>
+        </member>
+        <member name="P:Catalog.API.Contracts.Views.Product.Price">
+            <summary>
+            Product price
+            </summary>
+        </member>
+        <member name="P:Catalog.API.Contracts.Views.Product.LastUpdated">
+            <summary>
+            Last update date
+            </summary>
+        </member>
+        <member name="P:Catalog.API.Contracts.Views.Product.PriceApproved">
+            <summary>
+            Indicates whether the price is approved or not
+            </summary>
+        </member>
     </members>
 </doc>

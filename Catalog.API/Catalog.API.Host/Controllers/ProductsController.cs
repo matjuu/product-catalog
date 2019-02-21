@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Catalog.API.ApplicationServices;
-using Catalog.API.Contracts.Requests;
+using Catalog.API.Contracts.Commands;
+using Catalog.API.Contracts.Queries;
 using Catalog.API.Contracts.Views;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Catalog.API.Host.Controllers
@@ -16,96 +16,110 @@ namespace Catalog.API.Host.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        private readonly IRequestHandler<CreateProductRequest, Product> _whenCreateProductRequest;
-        private readonly IRequestHandler<UpdateProductRequest, Product> _whenUpdateProductRequest;
+        private readonly IHandler<ProductsByFilter, IEnumerable<Product>> _queryProductsByFilter;
+        private readonly IHandler<ProductById, Product> _queryProductById;
 
-        public ProductsController(IRequestHandler<CreateProductRequest, Product> whenCreateProductRequest,
-            IRequestHandler<UpdateProductRequest, Product> whenUpdateProductRequest)
+        private readonly IHandler<CreateProduct, Product> _whenCreateProduct;
+        private readonly IHandler<UpdateProduct, Product> _whenUpdateProduct;
+        private readonly IHandler<UpdateProductImage, Product> _whenUpdateProductImage;
+        private readonly IHandler<ApproveProductPrice, Product> _whenApproveProductPrice;
+        private readonly IHandler<DeleteProduct> _whenDeleteProduct;
+
+        /// <inheritdoc />
+        public ProductsController(IHandler<CreateProduct, Product> whenCreateProduct,
+            IHandler<UpdateProduct, Product> whenUpdateProduct,
+            IHandler<ProductsByFilter, IEnumerable<Product>> queryProductsByFilter,
+            IHandler<ProductById, Product> queryProductById, IHandler<UpdateProductImage, Product> whenUpdateProductImage, IHandler<ApproveProductPrice, Product> whenApproveProductPrice, IHandler<DeleteProduct> whenDeleteProduct)
         {
-            _whenCreateProductRequest = whenCreateProductRequest;
-            _whenUpdateProductRequest = whenUpdateProductRequest;
+            _whenCreateProduct = whenCreateProduct;
+            _whenUpdateProduct = whenUpdateProduct;
+            _queryProductsByFilter = queryProductsByFilter;
+            _queryProductById = queryProductById;
+            _whenUpdateProductImage = whenUpdateProductImage;
+            _whenApproveProductPrice = whenApproveProductPrice;
+            _whenDeleteProduct = whenDeleteProduct;
         }
 
+        /// <param name="query">An object describing the query parameters</param>
         /// <returns>A list of products that match the search criteria.</returns>
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<Product>), 200)]
         [ProducesResponseType(typeof(Error), 400)]
-        public IActionResult Get()
+        public async Task<IActionResult> Get([FromQuery] ProductsByFilter query)
         {
-            return Ok();
+            var result = await _queryProductsByFilter.Handle(query);
+            return Ok(result);
         }
 
-        /// <param name="id">Unique product identifier value</param>
+        /// <param name="query">An object describing the query parameters</param>
         /// <returns>An object representing a Product</returns>
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(Product), 200)]
         [ProducesResponseType(typeof(Error), 404)]
-        public IActionResult Get(Guid id)
+        public async Task<IActionResult> Get([FromQuery] ProductById query)
         {
-            return Ok();
+            var result = await _queryProductById.Handle(query);
+            return Ok(result);
         }
 
-        /// <param name="id">Unique product identifier value</param>
-        /// <returns>An object representing a Product Image</returns>
-        [HttpGet("{id}/image")]
-        [ProducesResponseType(typeof(Error), 404)]
-        public IActionResult GetImage(Guid id)
-        {
-            return Ok();
-        }
-
-        /// <param name="request">An object representing a request to create a Product</param>
+        /// <param name="command">An object representing a request to create a Product</param>
         /// <returns>An object representing a Product</returns>
         [HttpPost]
         [ProducesResponseType(typeof(Product), 200)]
         [ProducesResponseType(typeof(Error), 400)]
-        public async Task<IActionResult> Create([FromBody] CreateProductRequest request)
+        public async Task<IActionResult> Create([FromBody] CreateProduct command)
         {
-            var responseObject = await _whenCreateProductRequest.Handle(request);
-            return Ok(responseObject);
+            var result = await _whenCreateProduct.Handle(command);
+            return Ok(result);
         }
 
-
-        /// <param name="request">An object representing a request to create a Catalog Export</param>
-        /// <param name="id">Unique product identifier value</param>
-        /// <param name="image"></param>
+        /// <param name="updateProductImage">An object representing a request to update a product's image</param>
         /// <returns></returns>
         [HttpPut("{id}/image")]
         [ProducesResponseType(typeof(Product), 200)]
         [ProducesResponseType(typeof(Error), 400)]
-        public IActionResult UploadImage(Guid id, [FromBody] IFormFile image)
+        public async Task<IActionResult> UpdateImage([FromForm] UpdateProductImage updateProductImage)
         {
-            return Ok();
+            var result = await _whenUpdateProductImage.Handle(updateProductImage);
+            return Ok(result);
         }
 
-        /// <param name="id">Unique product identifier value</param>
+        /// <param name="id">Product id</param>
         /// <param name="request">An object representing a request to update a Product</param>
         /// <returns>An object representing a Product</returns>
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(Product), 200)]
         [ProducesResponseType(typeof(Error), 400)]
         [ProducesResponseType(typeof(Error), 404)]
-        public async Task<IActionResult> Update(int id, [FromBody] UpdateProductRequest request)
+        public async Task<IActionResult> Update(Guid id, [FromBody] UpdateProduct request)
         {
-            var response = await _whenUpdateProductRequest.Handle(request);
-            return Ok();
+            request.Id = id;
+            var response = await _whenUpdateProduct.Handle(request);
+            return Ok(response);
         }
 
-        [HttpPut("{id}/price/confirm")]
+        /// <summary>
+        /// An endpoint for confirming a price if it needs it
+        /// </summary>
+        /// <param name="request">Represents a request to approve product price</param>
+        /// <returns></returns>
+        [HttpPut("{id}/price/approve")]
         [ProducesResponseType(typeof(Product), 200)]
         [ProducesResponseType(typeof(Error), 400)]
         [ProducesResponseType(typeof(Error), 404)]
-        public IActionResult ConfirmPrice(int id)
+        public async Task<IActionResult> ConfirmPrice([FromRoute] ApproveProductPrice request)
         {
-            return Ok();
+            var result = await _whenApproveProductPrice.Handle(request);
+            return Ok(result);
         }
 
-        /// <param name="id">Unique product identifier value</param>
+        /// <param name="request">A request to delete a product</param>
         [HttpDelete("{id}")]
         [ProducesResponseType(204)]
         [ProducesResponseType(typeof(Error), 404)]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete([FromQuery] DeleteProduct request)
         {
+            await _whenDeleteProduct.Handle(request);
             return NoContent();
         }
     }

@@ -4,24 +4,23 @@
         <name>Catalog.API.Host</name>
     </assembly>
     <members>
-        <member name="T:Catalog.API.Host.Controllers.CatalogController">
+        <member name="T:Catalog.API.Host.Controllers.CatalogExportsController">
             <summary>
             A controller for catalog related behaviors such as excel export
             </summary>
         </member>
-        <member name="M:Catalog.API.Host.Controllers.CatalogController.Get(System.Guid)">
-            <param name="id">Unique report identifier value</param>
+        <member name="M:Catalog.API.Host.Controllers.CatalogExportsController.#ctor(Catalog.API.ApplicationServices.IHandler{Catalog.API.Contracts.Queries.CatalogExportsByFilter,System.Collections.Generic.IEnumerable{Catalog.API.Contracts.Views.CatalogExport}},Catalog.API.ApplicationServices.IHandler{Catalog.API.Contracts.Commands.CreateCatalogExport,Catalog.API.Contracts.Views.CatalogExport},Catalog.API.ApplicationServices.IHandler{Catalog.API.Contracts.Commands.DeleteCatalogExport})">
+            <inheritdoc />
+        </member>
+        <member name="M:Catalog.API.Host.Controllers.CatalogExportsController.Get(Catalog.API.Contracts.Queries.CatalogExportsByFilter)">
+            <param name="request">Represents a request to get a list of catalog exports</param>
             <returns>An object representing an exported Catalog</returns>
         </member>
-        <member name="M:Catalog.API.Host.Controllers.CatalogController.GetFile(System.Guid)">
-            <param name="id">Unique report identifier value</param>
-            <returns>An object representing an exported Catalog file</returns>
-        </member>
-        <member name="M:Catalog.API.Host.Controllers.CatalogController.Create">
+        <member name="M:Catalog.API.Host.Controllers.CatalogExportsController.Create(Catalog.API.Contracts.Commands.CreateCatalogExport)">
             <param name="request">An object representing a request to create a Catalog Export</param>
             <returns></returns>
         </member>
-        <member name="M:Catalog.API.Host.Controllers.CatalogController.Delete(System.Guid)">
+        <member name="M:Catalog.API.Host.Controllers.CatalogExportsController.Delete(Catalog.API.Contracts.Commands.DeleteCatalogExport)">
             <param name="id">Unique product identifier value</param>
         </member>
         <member name="T:Catalog.API.Host.Controllers.ProductsController">
@@ -29,33 +28,39 @@
             A controller for managing and retrieving products
             </summary>
         </member>
-        <member name="M:Catalog.API.Host.Controllers.ProductsController.Get">
+        <member name="M:Catalog.API.Host.Controllers.ProductsController.#ctor(Catalog.API.ApplicationServices.IHandler{Catalog.API.Contracts.Commands.CreateProduct,Catalog.API.Contracts.Views.Product},Catalog.API.ApplicationServices.IHandler{Catalog.API.Contracts.Commands.UpdateProduct,Catalog.API.Contracts.Views.Product},Catalog.API.ApplicationServices.IHandler{Catalog.API.Contracts.Queries.ProductsByFilter,System.Collections.Generic.IEnumerable{Catalog.API.Contracts.Views.Product}},Catalog.API.ApplicationServices.IHandler{Catalog.API.Contracts.Queries.ProductById,Catalog.API.Contracts.Views.Product},Catalog.API.ApplicationServices.IHandler{Catalog.API.Contracts.Commands.UpdateProductImage,Catalog.API.Contracts.Views.Product},Catalog.API.ApplicationServices.IHandler{Catalog.API.Contracts.Commands.ApproveProductPrice,Catalog.API.Contracts.Views.Product},Catalog.API.ApplicationServices.IHandler{Catalog.API.Contracts.Commands.DeleteProduct})">
+            <inheritdoc />
+        </member>
+        <member name="M:Catalog.API.Host.Controllers.ProductsController.Get(Catalog.API.Contracts.Queries.ProductsByFilter)">
+            <param name="query">An object describing the query parameters</param>
             <returns>A list of products that match the search criteria.</returns>
         </member>
-        <member name="M:Catalog.API.Host.Controllers.ProductsController.Get(System.Guid)">
+        <member name="M:Catalog.API.Host.Controllers.ProductsController.Get(Catalog.API.Contracts.Queries.ProductById)">
             <param name="id">Unique product identifier value</param>
+            <param name="query">An object describing the query parameters</param>
             <returns>An object representing a Product</returns>
         </member>
-        <member name="M:Catalog.API.Host.Controllers.ProductsController.GetImage(System.Guid)">
-            <param name="id">Unique product identifier value</param>
-            <returns>An object representing a Product Image</returns>
-        </member>
-        <member name="M:Catalog.API.Host.Controllers.ProductsController.Create(Catalog.API.Contracts.Requests.CreateProductRequest)">
-            <param name="request">An object representing a request to create a Product</param>
+        <member name="M:Catalog.API.Host.Controllers.ProductsController.Create(Catalog.API.Contracts.Commands.CreateProduct)">
+            <param name="command">An object representing a request to create a Product</param>
             <returns>An object representing a Product</returns>
         </member>
-        <member name="M:Catalog.API.Host.Controllers.ProductsController.UploadImage(System.Guid,Microsoft.AspNetCore.Http.IFormFile)">
-            <param name="request">An object representing a request to create a Catalog Export</param>
-            <param name="id">Unique product identifier value</param>
+        <member name="M:Catalog.API.Host.Controllers.ProductsController.UpdateImage(Catalog.API.Contracts.Commands.UpdateProductImage)">
+            <param name="updateProductImage">An object representing a request to update a product's image</param>
             <returns></returns>
         </member>
-        <member name="M:Catalog.API.Host.Controllers.ProductsController.Update(System.Int32,Catalog.API.Contracts.Requests.UpdateProductRequest)">
-            <param name="id">Unique product identifier value</param>
+        <member name="M:Catalog.API.Host.Controllers.ProductsController.Update(System.Guid,Catalog.API.Contracts.Commands.UpdateProduct)">
             <param name="request">An object representing a request to update a Product</param>
             <returns>An object representing a Product</returns>
         </member>
-        <member name="M:Catalog.API.Host.Controllers.ProductsController.Delete(System.Int32)">
-            <param name="id">Unique product identifier value</param>
+        <member name="M:Catalog.API.Host.Controllers.ProductsController.ConfirmPrice(Catalog.API.Contracts.Commands.ApproveProductPrice)">
+            <summary>
+            An endpoint for confirming a price if it needs it
+            </summary>
+            <param name="request">Represents a request to approve product price</param>
+            <returns></returns>
+        </member>
+        <member name="M:Catalog.API.Host.Controllers.ProductsController.Delete(Catalog.API.Contracts.Commands.DeleteProduct)">
+            <param name="request">A request to delete a product</param>
         </member>
     </members>
 </doc>

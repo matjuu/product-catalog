@@ -5,9 +5,20 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Catalog.API.Configuration\Catalog.API.Configuration.csproj" />
+    <PackageReference Include="AutoMapper" Version="8.0.0" />
+    <PackageReference Include="EPPlus" Version="4.5.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Catalog.API.Contracts\Catalog.API.Contracts.csproj" />
     <ProjectReference Include="..\Catalog.API.Domain.Contracts\Catalog.API.Domain.Contracts.csproj" />
+    <ProjectReference Include="..\Catalog.API.Infrastructure\Catalog.API.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.AspNetCore.Http.Features">
+      <HintPath>..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.aspnetcore.http.features\2.1.1\lib\netstandard2.0\Microsoft.AspNetCore.Http.Features.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
