@@ -32,7 +32,7 @@ API Swagger documentation can be found at http://localhost:5000/swagger.
 2. `Catagog` with a `List<Product>` was heavily considered as an aggregate root but opted against due to performance concerns when ensuring `Product.Code` uniqueness with huge amounts of products.
 
 ### Shortcomings
-1. No unit tests - Domain and Application layers should at least be covered
+1. Lack of unit tests - only `Product` covered reasonably, while almost no application services are. Technology choices and general testing approach/pattern is visible in the project though.
 2. Product export should use a persistent messaging mechanism to make the process asynchronous from the API standpoint. In this case requests can easily timeout (or at the very least provide bad UX) when exporting huge prouct catalogs
 3. CQRS isn't implemented all that well, especially concerning the data layer.
 4. Implementing the service using DDD resulted in an anemic aggregate of `CatalogExports`. Ideally you'd want this in a separate CRUD service since there is little to no domain specific behaviour to warrant use of DDD.
