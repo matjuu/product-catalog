@@ -5,10 +5,10 @@ namespace Catalog.API.Domain.Contracts
 {
     public class DomainException : Exception
     {
-        public DomainException(string message, string code, IDictionary<string, string> properties = null) : base(message)
+        public DomainException(string message, string code, IDictionary<string, string> properties =null) : base(message)
         {
             Code = code;
-            Properties = properties;
+            Properties = properties ?? new Dictionary<string, string>();
         }
 
         public string Code { get; }

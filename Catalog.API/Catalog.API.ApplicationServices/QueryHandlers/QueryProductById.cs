@@ -4,7 +4,6 @@ using Catalog.API.ApplicationServices.Exceptions;
 using Catalog.API.Contracts.Queries;
 using Catalog.API.Contracts.Views;
 using Catalog.API.Data;
-using Catalog.API.Infrastructure;
 
 namespace Catalog.API.ApplicationServices.QueryHandlers
 {

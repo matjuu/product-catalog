@@ -9,7 +9,6 @@ using Catalog.API.Configuration.Mapper;
 using Catalog.API.Configuration.Swagger;
 using Catalog.API.Data;
 using Catalog.API.Host.Middlewares;
-using Catalog.API.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;

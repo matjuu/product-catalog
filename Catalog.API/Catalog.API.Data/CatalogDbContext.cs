@@ -1,5 +1,4 @@
-﻿using System;
-using Catalog.API.Domain.Aggregates;
+﻿using Catalog.API.Domain.Aggregates;
 using Microsoft.EntityFrameworkCore;
 
 namespace Catalog.API.Data

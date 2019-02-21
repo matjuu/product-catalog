@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Catalog.API.Contracts.Queries;
 using Catalog.API.Contracts.Views;
 using Catalog.API.Data;
-using Catalog.API.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 namespace Catalog.API.ApplicationServices.QueryHandlers

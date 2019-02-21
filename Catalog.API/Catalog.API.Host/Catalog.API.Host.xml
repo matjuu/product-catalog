@@ -20,9 +20,6 @@
             <param name="request">An object representing a request to create a Catalog Export</param>
             <returns></returns>
         </member>
-        <member name="M:Catalog.API.Host.Controllers.CatalogExportsController.Delete(Catalog.API.Contracts.Commands.DeleteCatalogExport)">
-            <param name="id">Unique product identifier value</param>
-        </member>
         <member name="T:Catalog.API.Host.Controllers.ProductsController">
             <summary>
             A controller for managing and retrieving products
@@ -36,7 +33,6 @@
             <returns>A list of products that match the search criteria.</returns>
         </member>
         <member name="M:Catalog.API.Host.Controllers.ProductsController.Get(Catalog.API.Contracts.Queries.ProductById)">
-            <param name="id">Unique product identifier value</param>
             <param name="query">An object describing the query parameters</param>
             <returns>An object representing a Product</returns>
         </member>
@@ -49,6 +45,7 @@
             <returns></returns>
         </member>
         <member name="M:Catalog.API.Host.Controllers.ProductsController.Update(System.Guid,Catalog.API.Contracts.Commands.UpdateProduct)">
+            <param name="id">Product id</param>
             <param name="request">An object representing a request to update a Product</param>
             <returns>An object representing a Product</returns>
         </member>

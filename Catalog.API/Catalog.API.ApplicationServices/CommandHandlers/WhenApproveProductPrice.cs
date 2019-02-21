@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using AutoMapper;
+using Catalog.API.ApplicationServices.Exceptions;
 using Catalog.API.Contracts.Views;
 using Catalog.API.Infrastructure;
 using ApproveProductPrice = Catalog.API.Domain.Contracts.Commands.ApproveProductPrice;
@@ -20,6 +21,7 @@ namespace Catalog.API.ApplicationServices.CommandHandlers
         protected override async Task<Product> HandleCore(Contracts.Commands.ApproveProductPrice request)
         {
             var aggregate = await _productsRepository.Get(request.Id);
+            if(aggregate == null) throw new NotFoundException();
 
             aggregate.ApprovePrice(new ApproveProductPrice());
 
